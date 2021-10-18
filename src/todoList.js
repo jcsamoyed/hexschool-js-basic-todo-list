@@ -1,5 +1,6 @@
 const todo = document.querySelector(".card__input");
 const addBtn = document.querySelector(".card__add-btn");
+const list = document.querySelector(".card__list");
 
 let data = [
   {
@@ -24,6 +25,22 @@ let data = [
   },
 ];
 
+function renderData() {
+  let str = "";
+  data.forEach(function (item, index) {
+    str += `
+    <li>
+      <input id="checkbox${item.id}" type="checkbox" />
+      <label for="checkbox${item.id}">${item.content}</label>
+      <div data-num="${index}" class="card__del-btn">✕</div>
+    </li>
+  `;
+  });
+
+  list.innerHTML = str;
+}
+renderData();
+
 addBtn.addEventListener("click", function () {
   if (!todo.value) {
     return;
@@ -36,18 +53,10 @@ addBtn.addEventListener("click", function () {
   todo.value = "";
 });
 
-function renderData() {
-  let str = "";
-  data.forEach(function (item) {
-    str += `
-    <li>
-      <input id="checkbox${item.id}" type="checkbox" />
-      <label for="checkbox${item.id}">${item.content}</label>
-    </li>
-  `;
-  });
-
-  const list = document.querySelector(".card__list");
-  list.innerHTML = str;
-}
-renderData();
+list.addEventListener("click", function (e) {
+  if (e.target.getAttribute("class") == "card__del-btn") {
+    let num = e.target.getAttribute("data-num");
+    data.splice(num, 1);
+    renderData();
+  }
+});
