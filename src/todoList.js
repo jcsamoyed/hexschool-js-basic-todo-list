@@ -6,32 +6,42 @@ let data = [
   {
     id: "t1",
     content: "準備面試資料",
+    isChecked: true,
   },
   {
     id: "t2",
     content: "乖乖被洗臉",
+    isChecked: true,
   },
   {
     id: "t3",
     content: "認命回來上課",
+    isChecked: true,
   },
   {
     id: "t4",
     content: "做 todoList 卡關",
+    isChecked: true,
   },
   {
     id: "t5",
     content: "爬文求救",
+    isChecked: true,
   },
 ];
 
 function renderData() {
   let str = "";
   data.forEach(function (item, index) {
+    if (item.isChecked == true) {
+      checked = "checked";
+    } else {
+      checked = "";
+    }
     str += `
     <li>
-      <input id="checkbox${item.id}" type="checkbox" />
-      <label for="checkbox${item.id}">${item.content}</label>
+      <input data-num="${index}" id="checkbox${item.id}" type="checkbox" ${checked} />
+      <label data-num="${index}" for="checkbox${item.id}">${item.content}</label>
       <div data-num="${index}" class="card__del-btn">✕</div>
     </li>
   `;
@@ -48,6 +58,7 @@ function addTodo() {
   let newTodo = {};
   newTodo.id = Date.now();
   newTodo.content = todo.value;
+  newTodo.isChecked = false;
   data.push(newTodo);
   renderData();
   todo.value = "";
@@ -68,5 +79,8 @@ list.addEventListener("click", function (e) {
     let num = e.target.getAttribute("data-num");
     data.splice(num, 1);
     renderData();
+  } else if (e.target.nodeName == "LABEL" || e.target.nodeName == "INPUT") {
+    let num = e.target.getAttribute("data-num");
+    data[num].isChecked = !data[num].isChecked;
   }
 });
