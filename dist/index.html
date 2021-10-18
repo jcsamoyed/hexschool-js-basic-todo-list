@@ -7,7 +7,26 @@
     <title>Todo List</title>
   </head>
   <body>
-    <h1>TODO</h1>
+    <div class="card">
+      <h1 class="card__title">
+        TODO
+        <span>Live and learn.</span>
+      </h1>
+      <div class="card__add">
+        <input type="text" placeholder="+ add a new todo" class="card__input" />
+        <input type="button" value="+" class="card__add-btn" />
+      </div>
+      <ul class="card__list">
+        <li>
+          <input id="checkbox" type="checkbox" />
+          <label for="checkbox">afterCheckBox</label>
+        </li>
+        <li>
+          <input id="checkbox2" type="checkbox" />
+          <label for="checkbox2">todo</label>
+        </li>
+      </ul>
+    </div>
     <script src="./bundle.js"></script>
   </body>
 </html>
