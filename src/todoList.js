@@ -41,7 +41,7 @@ function renderData() {
 }
 renderData();
 
-addBtn.addEventListener("click", function () {
+function addTodo() {
   if (!todo.value) {
     return;
   }
@@ -51,6 +51,16 @@ addBtn.addEventListener("click", function () {
   data.push(newTodo);
   renderData();
   todo.value = "";
+}
+
+addBtn.addEventListener("click", function () {
+  addTodo();
+});
+
+todo.addEventListener("keydown", function (e) {
+  if (e.keyCode == 13) {
+    addTodo();
+  }
 });
 
 list.addEventListener("click", function (e) {
